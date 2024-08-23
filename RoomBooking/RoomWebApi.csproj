@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RoomBookingDll\RoomBookingDll.csproj" />
+    <ProjectReference Include="..\RoomBookingDll\RoomDll.csproj" />
   </ItemGroup>
 
 </Project>

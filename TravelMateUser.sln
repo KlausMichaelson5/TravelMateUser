@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CabDll", "CabDll\CabDll.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CabWebApi", "CabWebApi\CabWebApi.csproj", "{589C147B-69B4-46BB-A35D-FD1403874EEE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomBookingDll", "RoomBookingDll\RoomBookingDll.csproj", "{6DF83095-B89B-4B2D-9325-282084325415}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomDll", "RoomBookingDll\RoomDll.csproj", "{6DF83095-B89B-4B2D-9325-282084325415}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomBookingWebApi", "RoomBooking\RoomBookingWebApi.csproj", "{2FC4BA56-F64F-4854-96C5-2BD42D8DF7A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomWebApi", "RoomBooking\RoomWebApi.csproj", "{2FC4BA56-F64F-4854-96C5-2BD42D8DF7A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
