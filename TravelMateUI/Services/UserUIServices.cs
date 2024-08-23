@@ -6,8 +6,13 @@ using TravelMateUI;
 
 namespace TravelMate2.Services
 {
+	public class UserInfoService()
+	{
+		public int UserId;
+	}
 	public class AuthService
 	{
+
 		private readonly HttpClient http;
 		public AuthService()
 		{
