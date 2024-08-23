@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using TravelMate.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CabDll.Models
@@ -55,7 +54,7 @@ namespace CabDll.Models
 
 		}
 
-		public DbSet<User> Users { get; set; }
+		
 		
 		public DbSet<Cab> Cabs { get; set; }
 
