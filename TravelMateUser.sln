@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35201.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserWebApi", "UserWebApi\UserWebApi.csproj", "{C4C38B63-BB08-41BC-B9C0-80CF8CA8D120}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserWebApi", "UserWebApi\UserWebApi.csproj", "{C4C38B63-BB08-41BC-B9C0-80CF8CA8D120}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserDll", "UserDll\UserDll.csproj", "{9A7EB7DB-3B13-4577-9F03-BF04CB52AD25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserDll", "UserDll\UserDll.csproj", "{9A7EB7DB-3B13-4577-9F03-BF04CB52AD25}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelMateUI", "TravelMateUI\TravelMateUI.csproj", "{8643FFF5-565A-4CF3-9685-45E59A34C1F6}"
 EndProject
@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CabDll", "CabDll\CabDll.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CabWebApi", "CabWebApi\CabWebApi.csproj", "{589C147B-69B4-46BB-A35D-FD1403874EEE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomDll", "RoomBookingDll\RoomDll.csproj", "{6DF83095-B89B-4B2D-9325-282084325415}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomWebApi", "RoomWebApi\RoomWebApi.csproj", "{C8EE1756-11DF-4D5D-9E57-9FCA83C809AA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomWebApi", "RoomBooking\RoomWebApi.csproj", "{2FC4BA56-F64F-4854-96C5-2BD42D8DF7A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoomDll", "RoomDll\RoomDll.csproj", "{6DB957A4-D745-4ABB-914E-2EF32CCBA585}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,14 +55,14 @@ Global
 		{589C147B-69B4-46BB-A35D-FD1403874EEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{589C147B-69B4-46BB-A35D-FD1403874EEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{589C147B-69B4-46BB-A35D-FD1403874EEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6DF83095-B89B-4B2D-9325-282084325415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6DF83095-B89B-4B2D-9325-282084325415}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6DF83095-B89B-4B2D-9325-282084325415}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6DF83095-B89B-4B2D-9325-282084325415}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FC4BA56-F64F-4854-96C5-2BD42D8DF7A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FC4BA56-F64F-4854-96C5-2BD42D8DF7A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FC4BA56-F64F-4854-96C5-2BD42D8DF7A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FC4BA56-F64F-4854-96C5-2BD42D8DF7A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8EE1756-11DF-4D5D-9E57-9FCA83C809AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8EE1756-11DF-4D5D-9E57-9FCA83C809AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8EE1756-11DF-4D5D-9E57-9FCA83C809AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8EE1756-11DF-4D5D-9E57-9FCA83C809AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DB957A4-D745-4ABB-914E-2EF32CCBA585}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DB957A4-D745-4ABB-914E-2EF32CCBA585}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DB957A4-D745-4ABB-914E-2EF32CCBA585}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DB957A4-D745-4ABB-914E-2EF32CCBA585}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
