@@ -9,7 +9,6 @@ using UserWebApi.Models;
 namespace TravelMate.Controllers
 {
 	[Route("api/users")]
-    [Authorize]
     [ApiController]
 	[EnableCors("cors")]
 	public class UserController : ControllerBase
@@ -22,7 +21,8 @@ namespace TravelMate.Controllers
 		}
 
 		[HttpPost("login")]
-		public async Task<ActionResult<User>> Get(UserLogin user)
+        [Authorize]
+        public async Task<ActionResult<User>> Get(UserLogin user)
 		{
 			try
 			{

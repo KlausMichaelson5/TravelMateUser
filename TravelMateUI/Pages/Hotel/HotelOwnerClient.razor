@@ -1,6 +1,8 @@
 ﻿@page "/hotel-owner-home"
+@using TravelMate2.Services
 @layout MinimalLayout
 @inherits LayoutComponentBase
+@inject UserInfoService userInfoService
 @inject NavigationManager NavigationManager
 
 <!DOCTYPE html>
@@ -187,7 +189,7 @@
         }
     </style>
 </head>
-
+<p>@userInfoService.UserId</p>
 <body>
     <div class="header">
         <div class="container">
