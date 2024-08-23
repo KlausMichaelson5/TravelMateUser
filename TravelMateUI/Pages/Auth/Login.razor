@@ -1,0 +1,138 @@
+﻿@page "/login"
+@using TravelMate.Models
+@using TravelMate2.Services
+@inject IUserUIService service
+@inject NavigationManager Navigation
+
+<!-- Include Bootstrap and Font Awesome -->
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet" />
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+
+    .login-container {
+        max-width: 400px;
+        margin: auto;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        padding: 50px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .login-container h2 {
+            margin-bottom: 30px;
+        }
+
+    footer {
+        background-color: #343a40;
+        color: #ffffff;
+        padding: 2rem 0;
+    }
+
+        footer a {
+            color: #ffc107;
+        }
+</style>
+
+<!-- Login Form -->
+<div class="container mt-5">
+    <div class="login-container">
+        <h2 class="text-center"><i class="fas fa-user-lock"></i> Login</h2>
+        <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <InputText id="username" class="form-control" @bind-Value="loginModel.Username" placeholder="Enter your username" />
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <InputText id="password" type="password" class="form-control" @bind-Value="loginModel.Password" placeholder="Enter your password" />
+            </div>
+
+            <div class="form-check mb-3">
+                <InputCheckbox id="rememberMe" class="form-check-input"  />
+                <label for="rememberMe" class="form-check-label">Remember me</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+        </EditForm>
+        <div class="mt-3 text-center">
+            <p>Don't have an account? <a href="Registration/1">Sign up</a></p>
+            <p><a href="/forgot-password">Forgot your password?</a></p>
+        </div>
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger mt-3">@errorMessage</div>
+        }
+        @if (isSuccess)
+        {
+            <div class="alert alert-success mt-3">User created successfully!</div>
+        }
+
+        @if (errorMessage != null)
+        {
+            <div class="alert alert-danger mt-3">@errorMessage</div>
+        }
+    </div>
+</div>
+
+<!-- Footer -->
+<!-- Include Bootstrap JS and Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+@code {
+    private UserInfo loginModel = new UserInfo();
+    private string? errorMessage;
+    private bool isSuccess = false;
+
+    private async Task HandleLogin()
+    {
+        try
+        {
+            var user = await Authenticate(loginModel);
+            
+            switch (user.UserType)
+            {
+                case UserType.Regular:
+                    Navigation.NavigateTo("/");
+                    break;
+                case UserType.hotel_owner:
+                    Navigation.NavigateTo("/hotel-owner-home");
+                    break;
+                case UserType.driver_client:
+                    Navigation.NavigateTo("/cabowner");
+                    break;
+
+            }
+            isSuccess = true;
+            errorMessage = null;
+        }
+        catch (Exception ex)
+        {
+            isSuccess = false;
+            errorMessage = ex.Message;
+        }
+    }
+
+
+    private async Task<User?> Authenticate(UserInfo user)
+    {
+
+        var tempUser = await service.GetUser(user);
+        return tempUser;
+
+    }
+
+}

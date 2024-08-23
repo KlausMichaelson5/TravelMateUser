@@ -1,0 +1,77 @@
+﻿@page "/RegisterAgent"
+@inject NavigationManager NavigationManager
+
+<div class="container-fluid registration-page">
+    <h2 class="text-center mb-4">Welcome to Travel Mate Registration</h2>
+    <p class="text-center mb-5">Choose your role below to register your services and start your journey with us.</p>
+
+    <div class="row justify-content-center">
+        <div class="col-md-5 mb-4">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-body text-center p-5">
+                    <i class="fas fa-hotel fa-4x mb-4 text-primary"></i>
+                    <h3 class="card-title mb-4">Hotel Owner</h3>
+                    <p class="card-text mb-4">Register your properties, manage bookings, and attract more guests to your hotels.</p>
+                    <button class="btn btn-primary btn-lg btn-block custom-hover" @onclick="NavigateToHotelOwner">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Register as Hotel Owner
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 mb-4">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-body text-center p-5">
+                    <i class="fas fa-taxi fa-4x mb-4 text-warning"></i>
+                    <h3 class="card-title mb-4">Cab Driver</h3>
+                    <p class="card-text mb-4">Register your cabs, connect with customers, and expand your service area.</p>
+                    <button class="btn btn-warning btn-lg btn-block custom-hover" @onclick="NavigateToDriverClient">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Register as Cab Driver
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <p>Already registered? <a href="/login" class="text-primary">Login here</a></p>
+    </div>
+</div>
+
+<style>
+    .registration-page {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        padding: 50px 0;
+    }
+
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+    .custom-hover:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .btn-block {
+        display: block;
+        width: 100%;
+    }
+</style>
+
+@code {
+    private void NavigateToHotelOwner()
+    {
+        NavigationManager.NavigateTo("/Registration/2");
+    }
+
+    private void NavigateToDriverClient()
+    {
+        NavigationManager.NavigateTo("/Registration/3");
+    }
+}

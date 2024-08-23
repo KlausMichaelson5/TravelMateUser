@@ -1,0 +1,308 @@
+﻿@page "/hotel-owner-home"
+@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Owner Dashboard - Travel Mate</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+
+        .header {
+            background: #007bff;
+            color: #fff;
+            padding: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+            .header h1 {
+                margin: 0;
+                font-size: 2.5rem;
+                font-weight: bold;
+            }
+
+
+
+        .navbar-nav .nav-link {
+            color: #fff;
+            margin-right: 20px;
+            font-weight: 500;
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: #b3d9ff;
+            }
+
+            .navbar-nav .nav-link.active {
+                background: #004494;
+                border-radius: 5px;
+            }
+
+        .dropdown-menu {
+            background-color: #0056b3;
+            border: none;
+        }
+
+        .dropdown-item {
+            color: #fff;
+        }
+
+            .dropdown-item:hover {
+                background-color: #004494;
+            }
+
+        .dashboard-section {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+
+            .dashboard-section h2 {
+                color: #007bff;
+                margin-bottom: 20px;
+                font-size: 2rem;
+                font-weight: bold;
+            }
+
+        .dashboard-card {
+            background: #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+            .dashboard-card h4 {
+                margin-bottom: 20px;
+                font-size: 1.75rem;
+                color: #0056b3;
+            }
+
+            .dashboard-card ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+                .dashboard-card ul li {
+                    background: #ffffff;
+                    border: 1px solid #ddd;
+                    border-radius: 8px;
+                    margin-bottom: 15px;
+                    padding: 15px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    transition: background 0.3s, transform 0.3s;
+                }
+
+                    .dashboard-card ul li:hover {
+                        background: #f1f1f1;
+                        transform: scale(1.02);
+                    }
+
+        .filter-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+
+            .filter-button:hover {
+                background-color: #0056b3;
+            }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+
+            .cta-button:hover {
+                background-color: #218838;
+            }
+
+        .footer {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 40px 0;
+            margin-top: 20px;
+        }
+
+            .footer a {
+                color: #ffffff;
+                transition: color 0.3s;
+            }
+
+                .footer a:hover {
+                    color: #b3d9ff;
+                }
+
+            .footer h5 {
+                font-weight: bold;
+                margin-bottom: 1rem;
+                color: #b3d9ff;
+            }
+
+        .media (max-width: 768px) {
+            .header, .dashboard-section
+
+        {
+            padding: 10px;
+        }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Hotel Owner Dashboard</h1>
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Manage Hotels</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Manage Bookings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">Add New Hotel</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Profile
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                                <a class="dropdown-item" href="#">Edit Profile</a>
+                                <a class="dropdown-item" href="#">Settings</a>
+                                <a class="dropdown-item" href="#">Logout</a>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="dashboard-section container">
+        <h2>Manage Your Hotels and Bookings</h2>
+
+
+        <div class="dashboard-card">
+            <h4>Your Hotels</h4>
+            <ul>
+                <li>
+                    <div>
+                        <strong>Hotel Grand</strong><br>
+                        <span class="text-muted">Location: Downtown</span>
+                    </div>
+                    <a href="#" class="btn btn-primary btn-sm">View Details</a>
+                </li>
+                <li>
+                    <div>
+                        <strong>Beachside Resort</strong><br>
+                        <span class="text-muted">Location: Seaside</span>
+                    </div>
+                    <a href="#" class="btn btn-primary btn-sm">View Details</a>
+                </li>
+                <!-- Add more hotels as needed -->
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="dashboard-card">
+                <h4>Bookings</h4>
+                <button class="filter-button">Filter Bookings</button>
+                <ul>
+                    <li>
+                        <div>
+                            <strong>Hotel Grand - Room 301</strong><br>
+                            <span class="text-muted">Booking #5678 | Check-in: 2024-08-30 | Check-out: 2024-09-05</span>
+                        </div>
+                        <span class="badge badge-success">Confirmed</span>
+                    </li>
+                    <li>
+                        <div>
+                            <strong>Beachside Resort - Suite 105</strong><br>
+                            <span class="text-muted">Booking #5679 | Check-in: 2024-09-10 | Check-out: 2024-09-15</span>
+                        </div>
+                        <span class="badge badge-warning">Pending</span>
+                    </li>
+                    <!-- Add more bookings as needed -->
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="dashboard-card">
+                <h4>Past Bookings</h4>
+                <ul>
+                    <li>
+                        <div>
+                            <strong>Hotel Grand - Room 202</strong><br>
+                            <span class="text-muted">Booking #5670 | Check-in: 2024-07-20 | Check-out: 2024-07-25</span>
+                        </div>
+                        <span class="badge badge-primary">Completed</span>
+                    </li>
+                    <li>
+                        <div>
+                            <strong>Beachside Resort - Room 102</strong><br>
+                            <span class="text-muted">Booking #5671 | Check-in: 2024-07-25 | Check-out: 2024-07-30</span>
+                        </div>
+                        <span class="badge badge-secondary">Cancelled</span>
+                    </li>
+                    <!-- Add more past bookings as needed -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+﻿@page "/aboutus"
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Web
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-lg border-0 rounded">
+                <div class="card-header bg-info text-white text-center">
+                    <h2>About Travel Mate</h2>
+                </div>
+                <div class="card-body bg-light">
+                    <p class="lead">Travel Mate is your one-stop solution for a stress-free travel experience. Our user-friendly web application empowers you to manage hotel bookings, secure reliable cab services, and explore all your travel essentials in one convenient location. Travel Mate simplifies planning, streamlines logistics, and facilitates a seamless travel journey.</p>
+
+                    <h3 class="mt-4 text-primary">Purpose</h3>
+                    <p>The purpose of this SRS document is to outline the functional and non-functional requirements for the Travel Mate web application. This document serves as a guide for the development team and stakeholders, ensuring that the final product meets the expected standards and user needs.</p>
+
+                    <h3 class="mt-4 text-primary">Scope</h3>
+                    <p>Travel Mate is a web application designed to simplify travel planning and booking. The application will allow users to search for and book hotels, secure cab services, and manage their travel essentials in one place. The platform targets travelers and travel service providers, offering seamless integration and a user-friendly experience.</p>
+
+                    <h3 class="mt-4 text-primary">Definitions, Acronyms, and Abbreviations</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item bg-info text-white"><strong>SRS:</strong> Software Requirements Specification</li>
+                                <li class="list-group-item bg-light"><strong>UI:</strong> User Interface</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item bg-light"><strong>API:</strong> Application Programming Interface</li>
+                                <li class="list-group-item bg-info text-white"><strong>DBMS:</strong> Database Management System</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3 class="mt-4 text-primary">Target Audience</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="alert alert-info">
+                                <strong>Travelers:</strong> Streamline your travel with an efficient platform for booking hotels and cab services, maximizing your valuable time.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="alert alert-success">
+                                <strong>Hotels & Travel Agencies:</strong> Reach a wider audience by showcasing your services through our comprehensive online platform.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Include your custom CSS styles *@
+<style>
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .card-header {
+        border-bottom: 2px solid #ddd;
+        background: linear-gradient(135deg, #1e90ff, #00bfff);
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .lead {
+        font-size: 1.25rem;
+        font-weight: 300;
+    }
+
+    .text-primary {
+        color: #007bff !important;
+    }
+
+    .alert {
+        border-radius: 10px;
+        font-size: 1.1rem;
+    }
+
+    .bg-light {
+        background-color: #f8f9fa !important;
+    }
+
+    .bg-info {
+        background-color: #17a2b8 !important;
+    }
+
+    .list-group-item {
+        border: 0;
+    }
+
+        .list-group-item.bg-info {
+            color: white;
+        }
+
+        .list-group-item.bg-light {
+            color: #212529;
+        }
+</style>
+
+@code {
+    private void Hotel()
+    {
+        NavigationManager.NavigateTo("/Register");
+    }
+    private void Cab()
+    {
+        NavigationManager.NavigateTo("/login");
+    }
+}

@@ -1,0 +1,185 @@
+﻿@page "/register-cab"
+@using TravelMate.Models
+@using TravelMate2.Services
+@inject ICabUIService CabService
+@inject NavigationManager Navigation
+@inject HttpClient HttpClient
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            padding-top: 70px;
+            background-color: #f8f9fa;
+        }
+
+        .registration-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .registration-container h2 {
+                margin-bottom: 20px;
+            }
+
+        footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 2rem 0;
+        }
+
+            footer a {
+                color: #ffc107;
+            }
+    </style>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-taxi"></i> Travel Mate - Cab Registration
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/register-cab">
+                        <i class="fas fa-taxi"></i> Register Cab
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/driver-login">
+                        <i class="fas fa-sign-in-alt"></i> Driver Login
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="registration-container">
+        <h2 class="text-center"><i class="fas fa-taxi"></i> Register Your Cab</h2>
+        <EditForm Model="@cab" OnValidSubmit="RegisterCab">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label for="vehicleName" class="form-label">Vehicle Name</label>
+                <InputText id="vehicleName" class="form-control" @bind-Value="cab.VehicleName" placeholder="Enter the vehicle name" />
+            </div>
+
+            <div class="mb-3">
+                <label for="registrationNumber" class="form-label">Registration Number</label>
+                <InputText id="registrationNumber" class="form-control" @bind-Value="cab.RegistrationNumber" placeholder="Enter the registration number" />
+            </div>
+
+            <div class="mb-3">
+                <label for="licenseNumber" class="form-label">License Number</label>
+                <InputText id="licenseNumber" class="form-control" @bind-Value="cab.LicenseNumber" placeholder="Enter the license number" />
+            </div>
+
+           @*  <div class="mb-3">
+                <label for="vehicleType" class="form-label">Vehicle Type</label>
+                <InputText id="vehicleType" class="form-control" @bind-Value="cab.VehicleType" placeholder="Enter the vehicle type" />
+            </div> *@
+            <div class="mb-3">
+            <label for="nationality"><i class="fas fa-globe"></i> Select Nationality:</label>
+            <InputSelect id="nationality" class="form-control" @bind-Value="cab.VehicleType">
+                <option value="">Select Cab types</option>
+                @foreach (var type in Enum.GetValues(typeof(VehicleType)))
+                {
+                    <option value="@type">@type</option>
+                }
+            </InputSelect>
+            </div>
+            <div class="mb-3">
+                <label for="numberOfSeats" class="form-label">Number of Seats</label>
+                <InputNumber id="numberOfSeats" class="form-control" @bind-Value="cab.NumberOfSeats" placeholder="Enter the number of seats" />
+            </div>
+
+            <div class="mb-3">
+                <label for="pricePerKm" class="form-label">Price Per Km</label>
+                <InputNumber id="pricePerKm" class="form-control" @bind-Value="cab.PricePerKm" placeholder="Enter the price per km" />
+            </div>
+
+            <div class="mb-3">
+                <label for="rating" class="form-label">Rating</label>
+                <InputNumber id="rating" class="form-control" @bind-Value="cab.Rating" placeholder="Enter the rating" />
+            </div>
+
+            <div class="mb-3">
+                <label for="availabilityStatus" class="form-label">Availability Status</label>
+                <InputCheckbox id="availabilityStatus" class="form-check-input" @bind-Value="cab.AvailabilityStatus" />
+                <label class="form-check-label ms-2" for="availabilityStatus">Available</label>
+            </div>
+
+            <div class="mb-3">
+                <label for="cabPhoto" class="form-label">Cab Photo URL</label>
+                <InputText id="cabPhoto" class="form-control" @bind-Value="cab.CabPhoto" placeholder="Enter the URL of the cab photo" />
+            </div>
+
+            <div class="mb-3">
+                <label for="driverPhoto" class="form-label">Driver Photo URL</label>
+                <InputText id="driverPhoto" class="form-control" @bind-Value="cab.DriverPhoto" placeholder="Enter the URL of the driver photo" />
+            </div>
+
+            <div class="mb-3">
+                <label for="latitude" class="form-label">Latitude</label>
+                <InputNumber id="latitude" class="form-control" @bind-Value="cab.Latitude" placeholder="Enter the latitude" />
+            </div>
+
+            <div class="mb-3">
+                <label for="longitude" class="form-label">Longitude</label>
+                <InputNumber id="longitude" class="form-control" @bind-Value="cab.Longitude" placeholder="Enter the longitude" />
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-success w-100">
+                    <i class="fas fa-save"></i> Register Cab
+                </button>
+            </div>
+        </EditForm>
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger mt-3">@errorMessage</div>
+        }
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+@code {
+    private Cab cab = new Cab();
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Initialize any necessary data
+    }
+
+    private async Task RegisterCab()
+    {
+        try
+        {
+            // await CabService.AddCab(cab);
+            // Navigation.NavigateTo("/cabs");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+    }
+}

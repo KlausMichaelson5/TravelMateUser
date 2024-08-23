@@ -1,0 +1,151 @@
+﻿@page "/Registration"
+@page "/Registration/{userType:int}"
+@using TravelMate.Models
+@using TravelMate2.Services
+@inject IUserUIService service
+@inject NavigationManager NavigationManager
+
+<section class="vh-50" style="background-color: #eee;">
+    <div class="container h-50">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-11">
+                <div class="card text-black" style="border-radius: 25px;">
+                    <div class="card-body p-md-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign Up</p>
+
+                                <EditForm Model="@user" OnValidSubmit="HandleValidSubmit" class="mx-1 mx-md-4">
+                                    <DataAnnotationsValidator />
+                                    <ValidationSummary class="text-danger" />
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label class="form-label" for="name">Your Name</label>
+                                            <InputText id="name" class="form-control" @bind-Value="user.Name" placeholder="Your Name" />
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-user-circle fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label class="form-label" for="username">Your Username</label>
+                                            <InputText id="username" class="form-control" @bind-Value="user.Username" placeholder="Your Username" />
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label class="form-label" for="email">Your Email</label>
+                                            <InputText id="email" type="email" class="form-control" @bind-Value="user.Email" placeholder="Your Email" />
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label class="form-label" for="password">Password</label>
+                                            <InputText id="password" type="@passwordInputType" class="form-control" @bind-Value="user.PasswordHash" placeholder="Password" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="phoneNumber"><i class="fas fa-user"></i> Enter Name:</label>
+                                        <InputText id="phoneNumber" class="form-control" @bind-Value="user.PhoneNumber" placeholder="Phone Number" />
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-globe fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label class="form-label" for="nationality">Select Nationality</label>
+                                            <InputSelect id="nationality" class="form-control" @bind-Value="user.Nationality">
+                                                <option value="">Select Nationality</option>
+                                                @foreach (var type in Enum.GetValues(typeof(Nationality)))
+                                                {
+                                                    <option value="@type">@type</option>
+                                                }
+                                            </InputSelect>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-globe fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <label for="susertype"><i class="fas fa-user-tag"></i> User Type:</label>
+                                            <InputSelect id="susertype" class="form-control" @bind-Value="user.UserType" >
+                                                <option value="@SelectedUserType">@SelectedUserType</option>
+                                            </InputSelect>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check d-flex justify-content-center mb-5">
+                                        <InputCheckbox id="agreeTerms" class="form-check-input me-2" @bind-Value="rememberPassword" />
+                                        <label class="form-check-label" for="agreeTerms">
+                                            I agree all statements in <a href="#!">Terms of service</a>
+                                        </label>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            Register
+                                        </button>
+                                    </div>
+                                </EditForm>
+
+                            </div>
+                            <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" class="img-fluid" alt="Sample image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter]
+    public int userType { get; set; }
+    private UserType SelectedUserType{ get; set; }
+    protected async override Task OnInitializedAsync()
+    {
+        switch (userType)
+        {
+            case 1:
+                SelectedUserType = UserType.Regular;
+                break;
+            case 2:
+                SelectedUserType = UserType.hotel_owner;
+                break;
+            case 3:
+                SelectedUserType = UserType.driver_client;
+                break;
+            default:
+                SelectedUserType = UserType.Regular;
+                break;
+
+        }
+    }
+    private User user = new User {}; 
+    private bool rememberPassword = false;
+
+    private string passwordInputType = "password";
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            user.AuthProvider = AuthProvider.Local;
+            await service.Add(user);
+            NavigationManager.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Error in registration.");
+        }
+    }
+}

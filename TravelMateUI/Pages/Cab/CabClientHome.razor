@@ -1,0 +1,270 @@
+﻿@page "/cabowner"
+@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cab Owner Dashboard - Travel Mate</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            margin: 0;
+        }
+
+        .background-image {
+            background-image: url('https://example.com/path/to/car-image.jpg'); /* Replace with actual car image URL */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        .header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-bottom: 1px solid #444;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #f7b731;
+            font-size: 2rem;
+        }
+
+            .navbar-brand i {
+                margin-right: 10px;
+            }
+
+        .nav-link {
+            color: #fff;
+            margin-right: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+            .nav-link:hover {
+                color: #f7b731;
+            }
+
+        .dropdown-menu {
+            background-color: rgba(0, 0, 0, 0.9);
+            border: none;
+        }
+
+        .dropdown-item {
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+            .dropdown-item:hover {
+                background-color: #f7b731;
+                color: #000;
+            }
+
+        .cta-button {
+            background-color: #f7b731;
+            color: #000;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 30px;
+            padding: 15px 30px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+            .cta-button:hover {
+                background-color: #e2a000;
+                color: #fff;
+            }
+
+        .dashboard-section {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            margin-top: 60px;
+        }
+
+            .dashboard-section h2 {
+                color: #f7b731;
+                margin-bottom: 30px;
+                font-size: 2.5rem;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            .dashboard-section h4 {
+                color: #fff;
+                margin-top: 20px;
+                margin-bottom: 15px;
+                font-weight: 600;
+            }
+
+        .ride-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .ride-list li {
+                padding: 20px;
+                background: rgba(0, 0, 0, 0.5);
+                margin-bottom: 15px;
+                border-radius: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                transition: background 0.3s ease;
+            }
+
+                .ride-list li:hover {
+                    background: rgba(0, 0, 0, 0.7);
+                }
+
+        .ride-status {
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #f7b731;
+        }
+
+        .ride-details {
+            color: #ddd;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            background-color: #333;
+            color: #bbb;
+            padding: 40px 0;
+            margin-top: auto;
+        }
+
+            .footer a {
+                color: #bbb;
+                transition: color 0.3s;
+            }
+
+                .footer a:hover {
+                    color: #f7b731;
+                }
+
+            .footer h5 {
+                font-weight: bold;
+                margin-bottom: 1rem;
+                color: #f7b731;
+            }
+
+        .media (max-width: 768px) {
+            .header, .dashboard-section
+
+        {
+            padding: 10px;
+        }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background-image">
+        <!-- Header Section -->
+        <div class="header d-flex justify-content-between align-items-center">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-taxi"></i> Travel Mate Cab Service
+            </a>
+            <nav class="nav">
+
+                <a class="nav-link" href="#">Settings</a>
+                <a class="nav-link" href="#">Support</a>
+            </nav>
+
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i> Profile
+                </button>
+                <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                    <a class="dropdown-item" href="#">Info</a>
+                    <a class="dropdown-item" href="#">Cabs</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div class="dashboard-section container">
+            <h2>Cab Owner Dashboard</h2>
+
+            <h4>Current Rides</h4>
+            <ul class="ride-list">
+                <li>
+                    <div>
+                        <span>Ride #1234: Downtown to Airport</span><br>
+                        <span class="ride-details">Pickup: 2024-08-22 10:00 AM | Dropoff: 2024-08-22 10:45 AM</span>
+                    </div>
+                    <span class="ride-status">In Progress</span>
+                </li>
+                <li>
+                    <div>
+                        <span>Ride #1235: Hotel to Conference Center</span><br>
+                        <span class="ride-details">Pickup: 2024-08-22 11:00 AM | Dropoff: 2024-08-22 11:30 AM</span>
+                    </div>
+                    <span class="ride-status">In Progress</span>
+                </li>
+            </ul>
+
+            <h4>Upcoming Rides</h4>
+            <ul class="ride-list">
+                <li>
+                    <div>
+                        <span>Ride #1236: Airport to Hotel</span><br>
+                        <span class="ride-details">Pickup: 2024-08-23 05:00 PM | Dropoff: 2024-08-23 05:45 PM</span>
+                    </div>
+                    <span class="ride-status">Scheduled</span>
+                </li>
+                <li>
+                    <div>
+                        <span>Ride #1237: Office to Airport</span><br>
+                        <span class="ride-details">Pickup: 2024-08-24 08:00 AM | Dropoff: 2024-08-24 08:45 AM</span>
+                    </div>
+                    <span class="ride-status">Scheduled</span>
+                </li>
+            </ul>
+
+            <h4>Finished Rides</h4>
+            <ul class="ride-list">
+                <li>
+                    <div>
+                        <span>Ride #1232: Mall to Home</span><br>
+                        <span class="ride-details">Pickup: 2024-08-20 07:00 PM | Dropoff: 2024-08-20 07:30 PM</span>
+                    </div>
+                    <span class="ride-status">Completed</span>
+                </li>
+                <li>
+                    <div>
+                        <span>Ride #1233: Downtown to Train Station</span><br>
+                        <span class="ride-details">Pickup: 2024-08-21 06:00 PM | Dropoff: 2024-08-21 06:30 PM</span>
+                    </div>
+                    <span class="ride-status">Completed</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

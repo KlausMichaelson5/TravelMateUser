@@ -1,0 +1,155 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+
+<style>
+    .header {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        border-bottom: 1px solid #444;
+        z-index: 1000;
+    }
+
+    .navbar-brand {
+        font-weight: bold;
+        color: dodgerblue;
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-gif {
+        width: 50px; /* Adjust the width */
+        height: 50px; /* Adjust the height */
+        margin-right: 10px;
+    }
+
+    .nav-link {
+        color: #fff;
+        margin-right: 20px;
+        font-weight: 500;
+        transition: color 0.3s;
+    }
+
+    .footer {
+        background-color: #282828;
+        padding: 20px 0;
+        color: #fff;
+    }
+
+        .footer h5 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: dodgerblue;
+        }
+
+        .footer a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+            .footer a:hover {
+                color: #fff;
+            }
+
+        .footer .social-icons a {
+            display: inline-block;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+</style>
+
+<div class="page">
+    <main>
+        <div class="top-row px-6">
+            <div class="header bg-dark py-3 shadow-sm">
+                <div class="d-flex justify-content-between align-items-center">
+                    <!-- Logo -->
+                    <a class="navbar-brand" href="/">
+                        <img src="https://cdn-icons-gif.flaticon.com/15944/15944705.gif" alt="Travel Mate Logo" class="logo-gif">
+                        Travel Mate
+                    </a>
+                    <!-- Navigation Menu -->
+                    <nav class="nav">
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-hotel"></i> Hotels
+                        </a>
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-car"></i> Cabs
+                        </a>
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-tag"></i> Deals
+                        </a>
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-book"></i> My Bookings
+                        </a>
+                    </nav>
+
+                    <!-- User Profile / Account Section -->
+                    <div class="d-flex align-items-center">
+                        <a href="/login" @onclick="@(()=>Login())" class="btn btn-outline-primary mr-2">Login</a>
+                        <a href="/Registration/1" class="btn btn-primary">Create Account</a>
+                        <div class="dropdown ml-3">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="languageCurrencyDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                IN | ENG | INR
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="languageCurrencyDropdown">
+                                <a class="dropdown-item" href="#">Change Language</a>
+                                <a class="dropdown-item" href="#">Change Currency</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <article >
+            @Body
+        </article>
+    </main>
+</div>
+
+<footer class="footer mt-auto">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 text-center text-md-left">
+                <h5>Travel Mate</h5>
+                <p>Your reliable partner for all your travel needs.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="/aboutus">About Us</a></li>
+                    <li><a href="/ContactUs">Contact Us</a></li>
+                    <li><a href="/privacy-policy">Privacy Policy</a></li>
+                    <li><a href="/tas">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 text-center text-md-right">
+                <h5>Follow Us</h5>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 text-center">
+                <span>© 2024 Travel Mate - All Rights Reserved</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+@code {
+    private void Login()
+    {
+        NavigationManager.NavigateTo("/login");
+    }
+}
