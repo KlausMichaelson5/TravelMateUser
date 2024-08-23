@@ -15,6 +15,7 @@ namespace TravelMateUI
 			Configuration = builder.Configuration;
 			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["BaseUrl"]) });
 			builder.Services.AddScoped<AuthService>();
+			builder.Services.AddScoped<UserInfoService>();
 			builder.Services.AddTransient<IUserUIService, UserUIService>();
             builder.Services.AddTransient<IHotelUIService, HotelUIService>();
             builder.Services.AddTransient<ICabUIService, CabUIService>();

@@ -2,6 +2,7 @@
 @using TravelMate.Models
 @using TravelMate2.Services
 @inject IUserUIService service
+@inject UserInfoService userInfoService
 @inject NavigationManager Navigation
 
 <!-- Include Bootstrap and Font Awesome -->
@@ -102,7 +103,8 @@
         try
         {
             var user = await Authenticate(loginModel);
-            
+            userInfoService.UserId = user.UserId;
+
             switch (user.UserType)
             {
                 case UserType.Regular:
