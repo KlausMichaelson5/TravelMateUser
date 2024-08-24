@@ -9,7 +9,6 @@ using UserWebApi.Models;
 namespace TravelMate.Controllers
 {
 	[Route("api/users")]
-    [Authorize]
     [ApiController]
 	[EnableCors("cors")]
 	public class UserController : ControllerBase
@@ -22,7 +21,8 @@ namespace TravelMate.Controllers
 		}
 
 		[HttpPost("login")]
-		public async Task<ActionResult<User>> Get(UserLogin user)
+        [Authorize]
+        public async Task<ActionResult<User>> Get(UserLogin user)
 		{
 			try
 			{
@@ -49,21 +49,26 @@ namespace TravelMate.Controllers
 			}
 		}
 
-		[HttpPut("{id}")]
-		public async Task<IActionResult> Put(int id, [FromBody] User user)
-		{
-			try
-			{
-				await _service.UpdateUser(user);
-				return Ok();
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.Message);
-			}
-		}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] User user)
+        {
+            if (id != user.UserId)
+            {
+                return BadRequest("User ID mismatch.");
+            }
 
-		
+            try
+            {
+                await _service.UpdateUser(user);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-	}
+
+
+    }
 }

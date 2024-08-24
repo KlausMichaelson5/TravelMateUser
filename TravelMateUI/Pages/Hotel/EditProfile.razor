@@ -1,0 +1,151 @@
+﻿@page "/edit-profile"
+@using TravelMate.Models
+@using TravelMate2.Services
+@layout MinimalLayout
+@inject UserInfoService userInfoService
+@inject IUserUIService userUIService
+@inject NavigationManager NavigationManager
+
+<!-- Include Bootstrap and Font Awesome -->
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            padding-top: 70px;
+            background-color: #f8f9fa;
+        }
+
+        .profile-edit-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .profile-edit-container h2 {
+                margin-bottom: 20px;
+            }
+
+        footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 2rem 0;
+        }
+
+            footer a {
+                color: #ffc107;
+            }
+    </style>
+</head>
+
+<!-- Header with Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-user"></i> Travel Mate - Edit Profile
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/hotel-owner-home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register-hotel">
+                        <i class="fas fa-hotel"></i> Register Hotel
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/edit-profile">
+                        <i class="fas fa-user-edit"></i> Edit Profile
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Edit Profile Form -->
+<div class="container mt-5">
+    <div class="profile-edit-container">
+        <h2 class="text-center"><i class="fas fa-user-edit"></i> Edit Your Profile</h2>
+        <EditForm Model="@userInfoService._currentUser" OnValidSubmit="HandleSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <InputText id="username" class="form-control" @bind-Value="userInfoService._currentUser.Username" placeholder="Enter your username" />
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <InputText id="email" class="form-control" @bind-Value="userInfoService._currentUser.Email" placeholder="Enter your email" />
+            </div>
+
+            <div class="mb-3">
+                <label for="phoneNumber" class="form-label">Phone Number</label>
+                <InputText id="phoneNumber" class="form-control" @bind-Value="userInfoService._currentUser.PhoneNumber" placeholder="Enter your phone number" />
+            </div>
+
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <InputText id="name" class="form-control" @bind-Value="userInfoService._currentUser.Name" placeholder="Enter your full name" />
+            </div>
+
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <InputText id="address" class="form-control" @bind-Value="userInfoService._currentUser.Address" placeholder="Enter your address" />
+            </div>
+
+            <div class="mb-3">
+                <label for="nationality"><i class="fas fa-globe"></i> Select Nationality:</label>
+                <InputSelect id="nationality" class="form-control" @bind-Value="userInfoService._currentUser.Nationality">
+                    <option value="">Select Nationality</option>
+                    @foreach (var type in Enum.GetValues(typeof(Nationality)))
+                    {
+                        <option value="@type">@type</option>
+                    }
+                </InputSelect>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+            </div>
+        </EditForm>
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger mt-3">@errorMessage</div>
+        }
+    </div>
+</div>
+
+<!-- Include Bootstrap JS and Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+@code {
+    private string? errorMessage;
+
+    private async Task HandleSubmit()
+    {
+        try
+        {
+            // Call the UpdateUser method
+            await userUIService.UpdateUser(userInfoService._currentUser.UserId, userInfoService._currentUser);
+
+            // Navigate to the hotel-owner-home page after a successful update
+            NavigationManager.NavigateTo("/hotel-owner-home");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+    }
+}

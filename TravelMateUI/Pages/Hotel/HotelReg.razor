@@ -3,6 +3,7 @@
 @using TravelMate2.Services
 @layout MinimalLayout
 @inject IHotelUIService HotelService
+@inject UserInfoService userInfoService
 @inject NavigationManager Navigation
 @inject HttpClient HttpClient
 
@@ -165,32 +166,25 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 @code {
-    [Parameter] public int? Id { get; set; }
+    // [Parameter] public int? Id { get; set; }
     private Hotel hotel = new Hotel();
 
     private bool isSuccess = false;
     private string? errorMessage;
 
-    protected override async Task OnInitializedAsync()
-    {
-        hotel.HotelOwnerId = 1;
-    }
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     hotel.HotelOwnerId = userInfoService.CurrentUser.UserId;
+    // }
 
     private async Task RegisterHotel()
     {
         try
         {
-            if (Id.HasValue)
-            {
-                // await HotelService.Update(hotel);
-            }
-            else
-            {
-                // await HotelService.Add(hotel);
-            }
+            await HotelService.Add(hotel, userInfoService._currentUser.UserId);
             isSuccess = true;
             errorMessage = null;
-            Navigation.NavigateTo("/hotels");
+            Navigation.NavigateTo("/hotel-owner-home");
         }
         catch (Exception ex)
         {

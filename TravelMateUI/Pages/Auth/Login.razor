@@ -6,14 +6,12 @@
 @inject NavigationManager Navigation
 
 <!-- Include Bootstrap and Font Awesome -->
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet" />
 <style>
     body {
         background-color: #f8f9fa;
     }
-
 
     .login-container {
         max-width: 400px;
@@ -60,7 +58,7 @@
             </div>
 
             <div class="form-check mb-3">
-                <InputCheckbox id="rememberMe" class="form-check-input"  />
+                <InputCheckbox id="rememberMe" class="form-check-input" />
                 <label for="rememberMe" class="form-check-label">Remember me</label>
             </div>
 
@@ -90,7 +88,6 @@
 </div>
 
 <!-- Footer -->
-<!-- Include Bootstrap JS and Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 @code {
@@ -103,23 +100,17 @@
         try
         {
             var user = await Authenticate(loginModel);
-            userInfoService.UserId = user.UserId;
-
-            switch (user.UserType)
+            if (user != null)
             {
-                case UserType.Regular:
-                    Navigation.NavigateTo("/");
-                    break;
-                case UserType.hotel_owner:
-                    Navigation.NavigateTo("/hotel-owner-home");
-                    break;
-                case UserType.driver_client:
-                    Navigation.NavigateTo("/cabowner");
-                    break;
-
+                userInfoService.SetCurrentUser(user);
+                NavigateBasedOnUserType(user.UserType);
+                isSuccess = true;
+                errorMessage = null;
             }
-            isSuccess = true;
-            errorMessage = null;
+            else
+            {
+                throw new Exception("Invalid credentials");
+            }
         }
         catch (Exception ex)
         {
@@ -128,13 +119,26 @@
         }
     }
 
-
     private async Task<User?> Authenticate(UserInfo user)
     {
-
         var tempUser = await service.GetUser(user);
         return tempUser;
-
     }
 
+    private void NavigateBasedOnUserType(UserType userType)
+    {
+        switch (userType)
+        {
+            case UserType.Regular:
+                Navigation.NavigateTo("/");
+                break;
+            case UserType.hotel_owner:
+                Navigation.NavigateTo("/hotel-owner-home");
+                break;
+            case UserType.driver_client:
+                Navigation.NavigateTo("/cabowner");
+                break;
+        }
+    }
 }
+

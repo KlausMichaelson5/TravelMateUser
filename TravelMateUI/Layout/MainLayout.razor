@@ -1,5 +1,7 @@
-﻿@inherits LayoutComponentBase
+﻿@using TravelMate2.Services
+@inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
+@inject UserInfoService userInfoService
 
 <style>
     .header {
@@ -91,8 +93,16 @@
 
                     <!-- User Profile / Account Section -->
                     <div class="d-flex align-items-center">
-                        <a href="/login" @onclick="@(()=>Login())" class="btn btn-outline-primary mr-2">Login</a>
-                        <a href="/Registration/1" class="btn btn-primary">Create Account</a>
+                        @if (userInfoService.GetCurrentUser() != null)
+                        {
+                            <span class="text-white mr-3">Welcome, @userInfoService.GetCurrentUser().Username!</span>
+                            <button @onclick="Logout" class="btn btn-outline-primary mr-2">Logout</button>
+                        }
+                        else
+                        {
+                            <a href="/login" class="btn btn-outline-primary mr-2">Login</a>
+                            <a href="/Registration/1" class="btn btn-primary">Create Account</a>
+                        }
                         <div class="dropdown ml-3">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="languageCurrencyDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 IN | ENG | INR
@@ -107,11 +117,12 @@
             </div>
         </div>
 
-        <article >
+        <article>
             @Body
         </article>
     </main>
 </div>
+
 
 <footer class="footer mt-auto">
     <div class="container">
@@ -148,8 +159,9 @@
 </footer>
 
 @code {
-    private void Login()
+    private void Logout()
     {
+        userInfoService.ClearUser();
         NavigationManager.NavigateTo("/login");
     }
 }

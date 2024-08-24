@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Json;
 using TravelMate.Models;
+using TravelMateUI;
 
 namespace TravelMate2.Services
 {
@@ -19,11 +20,12 @@ namespace TravelMate2.Services
 		public HotelUIService(HttpClient httpClient)
 		{
 			_httpClient = httpClient;
+			_httpClient.BaseAddress = new Uri("http://localhost:5043/api/");
 		}
 
 		public async Task Add(Hotel hotel, int currentUserId)
-		{
-			await _httpClient.PostAsJsonAsync($"hotels?currentUserId={currentUserId}", hotel);
+        {
+			await _httpClient.PostAsJsonAsync($"hotels?currentUserId={currentUserId}",hotel);
 		}
 
 		public async Task<Hotel> Get(int id, int currentUserId)

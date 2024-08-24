@@ -8,8 +8,29 @@ namespace TravelMate2.Services
 {
 	public class UserInfoService()
 	{
-		public int UserId;
-	}
+        public int UserId { get; set; }
+        public User? _currentUser;
+
+        // Method to set the current user
+        public void SetCurrentUser(User user)
+        {
+            _currentUser = user;
+            UserId = user.UserId;
+        }
+
+        // Method to get the current user
+        public User? GetCurrentUser()
+        {
+            return _currentUser;
+        }
+
+        // Method to clear user information on logout
+        public void ClearUser()
+        {
+            _currentUser = null;
+            UserId = 0;
+        }
+    }
 	public class AuthService
 	{
 
@@ -35,6 +56,7 @@ namespace TravelMate2.Services
         Task Add(User user);
 		//Task<User> Login(string username,string password);
         Task<User> GetUser(UserInfo user);
+		Task UpdateUser(int id,User user);
     }
     public class UserUIService : IUserUIService
     {
@@ -74,24 +96,38 @@ namespace TravelMate2.Services
 			}
 		}
 
-		//public async Task<User> Login(string username,string password)
-  //      {
-		//	var token = await _authService.GetJwtToken(new UserInfo { Username = "test", Password = "password" });
-		//	Console.WriteLine(token);
-		//	var data = JsonSerializer.Deserialize<TokenInfo>(token);
-		//	Console.WriteLine(data.token);
-		//	var http = HttpClientFactory.CreateHttp("http://localhost:5254/api/Auth/login", data.token);
-		//	var response = await http.GetAsync($"users/?username={username}&password={password}");
-  //          if(response.IsSuccessStatusCode)
-  //          {
-  //              var authenticatedUser=await response.Content.ReadFromJsonAsync<User>();
-  //              return authenticatedUser;
-  //          }
-  //          else
-  //          {
-  //              throw new Exception("Invalid Credentials");
-  //          }
-  //      }
+        public async Task UpdateUser(int id, User user)
+        {
+            if (id != user.UserId)
+            {
+                throw new ArgumentException("User ID Miss Matched");
+            }
+            var response = await httpClient.PutAsJsonAsync($"users/{id}",user);
+            if(!response.IsSuccessStatusCode)
+            {
+                var errorMessage= await response.Content.ReadAsStringAsync();
+                throw new Exception(errorMessage);
+            }
+        }
+
+        //public async Task<User> Login(string username,string password)
+        //      {
+        //	var token = await _authService.GetJwtToken(new UserInfo { Username = "test", Password = "password" });
+        //	Console.WriteLine(token);
+        //	var data = JsonSerializer.Deserialize<TokenInfo>(token);
+        //	Console.WriteLine(data.token);
+        //	var http = HttpClientFactory.CreateHttp("http://localhost:5254/api/Auth/login", data.token);
+        //	var response = await http.GetAsync($"users/?username={username}&password={password}");
+        //          if(response.IsSuccessStatusCode)
+        //          {
+        //              var authenticatedUser=await response.Content.ReadFromJsonAsync<User>();
+        //              return authenticatedUser;
+        //          }
+        //          else
+        //          {
+        //              throw new Exception("Invalid Credentials");
+        //          }
+        //      }
     }
 }
 

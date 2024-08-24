@@ -13,7 +13,7 @@ namespace TravelMateUI
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 			Configuration = builder.Configuration;
-			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["BaseUrl"]) });
+			builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["BaseUrl"]) });
 			builder.Services.AddScoped<AuthService>();
 			builder.Services.AddScoped<UserInfoService>();
 			builder.Services.AddTransient<IUserUIService, UserUIService>();

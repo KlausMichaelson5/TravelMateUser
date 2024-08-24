@@ -17,9 +17,10 @@
             font-family: 'Roboto', sans-serif;
             background-color: #f8f9fa;
         }
-        body,html{
-            margin:0 !important;
-            padding:0 !important
+
+        body, html {
+            margin: 0 !important;
+            padding: 0 !important
         }
 
         .search-bar {
@@ -37,6 +38,7 @@
             .search-bar .form-control {
                 margin-bottom: 10px;
             }
+
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
@@ -82,6 +84,42 @@
             }
 
             .featured-services .card-text {
+                font-size: 1.1rem;
+                color: #6c757d;
+            }
+
+        .py-5 {
+            padding: 4rem 0;
+            background-color: #ffffff;
+        }
+
+            .py-5 h2 {
+                font-size: 2.5rem;
+                font-weight: bold;
+                margin-bottom: 2rem;
+                color: #007bff;
+            }
+
+            .py-5 .card {
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+                transition: all 0.3s ease;
+                overflow: hidden;
+            }
+
+                .py-5 .card:hover {
+                    transform: translateY(-0.5rem);
+                    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+                }
+
+            .py-5 .card-title {
+                font-size: 1.5rem;
+                font-weight: bold;
+                color: #007bff;
+            }
+
+            .py-5 .card-text {
                 font-size: 1.1rem;
                 color: #6c757d;
             }
@@ -175,37 +213,39 @@
             </div>
         </div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <a class="carousel-control-prev" data-target="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
     </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <a class="carousel-control-next" data-target="#carouselExampleIndicators" role="button" data-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
 </div>
 
 <div class="search-bar">
-        <form>
-            <div class="row g-2">
-                <div class="col-md-4">
-                    <input type="text" class="form-control" placeholder="Where are you going?">
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Check-in Date">
-                </div>
-                <div class="col-md-3">
-                    <input type="text" class="form-control" placeholder="Check-out Date">
-                </div>
-                <div class="col-md-2">
-                    <input type="text" class="form-control" placeholder="Guests">
-                </div>
-                <div class="col-md-12 text-center">
-                    <button type="submit" class="btn btn-primary w-100">Search</button>
-                </div>
+    <form>
+        <div class="row g-2">
+            <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="Where are you going?">
             </div>
-        </form>
+            <div class="col-md-3">
+                <input type="date" class="form-control" placeholder="Check-in Date">
+            </div>
+            <div class="col-md-3">
+                <input type="date" class="form-control" placeholder="Check-out Date">
+            </div>
+            <div class="col-md-2">
+                <input type="text" class="form-control" placeholder="Guests">
+            </div>
+            <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </div>
+    </form>
 </div>
+
+
 
 
 <!-- Featured Services Section -->
@@ -240,6 +280,54 @@
                         <h5 class="card-title">Register Hotels & Cabs</h5>
                         <p class="card-text flex-grow-1">Are you a hotel owner or cab service provider? Register your business with us to reach more customers.</p>
                         <a href="/RegisterAgent" class="btn btn-primary mt-auto">Register</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Recommended Hotels Section -->
+<section id="recommended-hotels" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Recommended Hotels</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="./image1.jpg" class="card-img-top" alt="Hotel 1">
+                    <div class="card-body">
+                        <h5 class="card-title">Hotel Paradise</h5>
+                        <p class="card-text">A luxurious stay in the heart of the city & spend time</p>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span>Bangalore, IND</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="./image4.jpg" class="card-img-top" alt="Hotel 2">
+                    <div class="card-body">
+                        <h5 class="card-title">Seaside Resort</h5>
+                        <p class="card-text">Relax and unwind by the beach.</p>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span>Delhi, IND</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="./image2.jpg" class="card-img-top" alt="Hotel 3">
+                    <div class="card-body">
+                        <h5 class="card-title">Mountain Lodge</h5>
+                        <p class="card-text">Enjoy views from the comfort room.</p>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            <span>Chennai, IND</span>
+                        </div>
                     </div>
                 </div>
             </div>
