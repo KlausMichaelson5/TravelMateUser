@@ -10,6 +10,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace HotelDll.Models
 {
+    public enum Nationality
+    {
+        IND,
+        USA,
+        UK,
+        RUS,
+        JPN
+    }
     [Table("tblHotel")]
     public class Hotel
     {
@@ -52,7 +60,7 @@ namespace HotelDll.Models
 
         }
         
-        public DbSet<User> Users { get; set; }
+        
         public DbSet<Hotel> Hotels { get; set; }
 
     }
