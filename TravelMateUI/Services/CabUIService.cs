@@ -8,7 +8,7 @@ namespace TravelMate2.Services
 	{
 		Task AddCab(Cab cab, int userId);
 		Task DeleteCab(int cabId, int userId);
-		Task<Cab> GetCab(int cabId, int userId);
+		Task<Cab> GetCab(int userId);
 		Task UpdateCab(Cab cab, int userId);
 	}
 
@@ -19,26 +19,27 @@ namespace TravelMate2.Services
 		public CabUIService(HttpClient client)
 		{
 			this.httpClient = client;
+            httpClient.BaseAddress = new Uri("http://localhost:5034/api/");
 		}
 
-		public async Task<Cab> GetCab(int cabId, int userId)
+		public async Task<Cab> GetCab(int userId)
 		{
-			return await httpClient.GetFromJsonAsync<Cab>($"cabs/{cabId}?currentUserId={userId}");
+			return await httpClient.GetFromJsonAsync<Cab>($"Cab/{userId}");
 		}
 
 		public async Task AddCab(Cab cab, int userId)
 		{
-			await httpClient.PostAsJsonAsync($"cabs/addcab?currentUserId={userId}", cab);
+			await httpClient.PostAsJsonAsync($"Cab/?currentUserId={userId}", cab);
 		}
 
 		public async Task UpdateCab(Cab cab, int userId)
 		{
-			await httpClient.PutAsJsonAsync($"cabs/?currentUserId={userId}", cab);
+			await httpClient.PutAsJsonAsync($"Cab/?currentUserId={userId}", cab);
 		}
 
 		public async Task DeleteCab(int cabId, int userId)
 		{
-			await httpClient.DeleteAsync($"api/cabs/{cabId}?currentUserId={userId}");
+			await httpClient.DeleteAsync($"Cab/{cabId}?currentUserId={userId}");
 		}
 	}
 }

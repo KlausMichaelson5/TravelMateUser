@@ -372,3 +372,7 @@ FodyWeavers.xsd
 /TravelMateUI/wwwroot/appsettings.json
 /UserWebApi/appsettings.json
 /UserDll/Migrations
+/CabDll/Migrations
+/TravelMateUI/wwwroot/appsettings.json
+/UserWebApi/appsettings.json
+/CabWebApi/appsettings.json
