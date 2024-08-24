@@ -122,7 +122,7 @@
 
     protected async override Task OnInitializedAsync()
     {
-        var cabOwner = userInfoService.CurrentUser;
+        var cabOwner = userInfoService._currentUser;
         if (cabOwner != null)
         {
             // Fetch the cab details for the current user

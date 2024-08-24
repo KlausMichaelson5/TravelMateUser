@@ -136,7 +136,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        CabOwner = userInfoService.CurrentUser;
+        CabOwner = userInfoService._currentUser;
         if (CabOwner != null)
         {
 
